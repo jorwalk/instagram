@@ -1,6 +1,6 @@
 <?php 
 //=============================================================================
-// User Endpoints -- Factory Pattern
+// User Endpoints -- Facade Pattern
 //=============================================================================	
 class User {
 
@@ -43,4 +43,7 @@ class User {
 		return $this->request->set_function('users/search')->call(array('q' => $name, 'count' => $limit));
 	}
 }
+
+
+
 ?>

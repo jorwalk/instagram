@@ -9,8 +9,6 @@ var Jumbotron = function(){
 			var rendered = Mustache.render(template, jumbotron);
 			place.html(rendered);
 		});
-
-
 	}
 
 
@@ -21,3 +19,32 @@ var Jumbotron = function(){
 
 
 Jumbotron.init();
+
+
+var User = function(){
+	
+	function get(){
+		$.get('index.php',{"request":"user"},function(result) {
+			if(result.meta.code == 200){
+				set(result);
+			}
+		});
+	}
+
+	function set(result){
+		console.log(result);
+		var place = $("#user-feed");
+		$.get('tmpl/tmpl-user-feed.mst',function(template) {
+			var rendered = Mustache.render(template, result);
+			place.html(rendered);
+		});
+		
+	}
+
+
+	return {
+		get:get
+	}
+}();
+
+User.get();

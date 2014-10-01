@@ -15,6 +15,7 @@ require_once("api/authentication.php");
 require_once("api/request.php");
 require_once("api/user.php");
 require_once("api/relationship.php");
+require_once("api/request_factory.php");
 
 
 $CLIENT_ID		= "888da47e974041309f7ea2ddc3e62b52";
@@ -28,7 +29,6 @@ $client_info->set_client_id($CLIENT_ID)
 	->set_website_url($WEBSITE_URL)
 	->set_redirect_uri($REDIRECT_URI);
 
-
 if(isset($_SESSION['access_token'])){
 	AuthRegistry::set('access_token',$_SESSION['access_token']);
 	AuthRegistry::set('username',$_SESSION['username']);
@@ -37,16 +37,18 @@ if(isset($_SESSION['access_token'])){
 	AuthRegistry::set('full_name',$_SESSION['full_name']);
 	AuthRegistry::set('id',$_SESSION['id']);
 
-
-	if(AuthRegistry::is_set('access_token')):
-		header('Content-Type: application/json');
+	// check for inbound
+	$endpoint = RequestRegistry::get_by('request');
+	if($endpoint):
 		
 		//
 		// Users Endpoints
-		//$user = new User(new Request);
+		$user = new User(new Request);
 		
 		// User Feed
-		//echo json_encode($user->get_self_feed());
+		header('Content-Type: application/json');
+		echo json_encode($user->get_self_feed());
+		exit;
 		
 		// Search for a user
 		//$q = "Jordan Walker";
@@ -72,7 +74,7 @@ if(isset($_SESSION['access_token'])){
 		//echo json_encode($relationship->set_relationship('1510676547', 'approve'));
 
 	endif;
-
+	
 
 
 } 
@@ -80,6 +82,7 @@ else
 {
 	$auth = new Authentication($client_info);	
 }
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -138,7 +141,15 @@ else
     <!-- JUMBOTRON -->
     <!--  -->
     <div id="jumbotron"></div>
-   
+   	
+   	<!--  -->
+    <!-- USER FEED -->
+    <!--  -->
+    <article class="container">
+    	<section id="user-feed" class="row"></section>
+    </article>
+
+
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
@@ -168,7 +179,6 @@ else
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
-
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 

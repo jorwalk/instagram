@@ -1,0 +1,29 @@
+{{#data}}
+<div class="col-md-6 col-sm-6 col-xs-6">
+<h2>{{filter}}</h2>
+
+{{#images}}
+	<!--
+	{{#standard_resolution}}
+		<img src="{{url}}" style="width:100%;display:block;"/>
+	{{/standard_resolution}}
+	-->
+	{{#low_resolution}}
+		<img src="{{url}}" style="display:block;"/>
+	{{/low_resolution}}
+
+{{/images}}
+
+
+{{#user}}
+{{bio}}
+	{{full_name}}
+	{{id}}
+	<img src="{{profile_picture}}" />
+	
+	{{username}}
+	{{website}}
+{{/user}}
+
+</div>
+{{/data}}
