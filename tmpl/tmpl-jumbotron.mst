@@ -1,0 +1,7 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>{{title}}</h1>
+    <p>{{text}}</p>
+    <p><a class="btn btn-primary btn-lg" role="button">{{action}}</a></p>
+  </div>
+</div>
